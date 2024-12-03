@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import pages.Loginpage;
+
 public class ConduitappTest extends BaseTest {
 
   @Test
@@ -29,15 +31,11 @@ public class ConduitappTest extends BaseTest {
 
     cmnDriver.navigateToUrl("http://localhost:3000");
 
-    driver.findElement(By.linkText("Sign in")).click();
 
-    driver.findElement(By.xpath("//input[@type='email']")).sendKeys(useremail);
+    loginpage.loginToApplication(useremail, password);
 
-    driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);
-
-    driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-    String actualUsername = driver.findElement(By.xpath("//a[contains(@href, 'profile')]")).getText();
+    
+    String actualUsername = loginpage.getUserprofileName();
 
     Assert.assertEquals(actualUsername, "saurabh");
 

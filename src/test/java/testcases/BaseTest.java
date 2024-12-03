@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import commonLibs.CommonDriver;
+import pages.Loginpage;
 
 public class BaseTest {
 
@@ -12,24 +13,28 @@ public class BaseTest {
 
     WebDriver driver;
 
+    Loginpage loginpage;
 
     @BeforeMethod
     public void setup() throws Exception {
 
-    cmnDriver = new CommonDriver("chrome");
+        cmnDriver = new CommonDriver("chrome");
 
-    cmnDriver.setElementDetectionTimeout(10);
+        cmnDriver.setElementDetectionTimeout(10);
 
-    cmnDriver.setPageloadTimeout(120);
+        cmnDriver.setPageloadTimeout(120);
 
-    driver = cmnDriver.getDriver();
+        driver = cmnDriver.getDriver();
+
+        loginpage = new Loginpage(driver);
+
     }
 
     @AfterMethod
-    public void cleanup() throws Exception{
+    public void cleanup() throws Exception {
 
         cmnDriver.closeAllBrowsers();
 
     }
-    
+
 }

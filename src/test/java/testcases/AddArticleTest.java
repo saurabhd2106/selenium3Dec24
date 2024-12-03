@@ -11,6 +11,11 @@ public class AddArticleTest extends BaseTest{
         
         // 2. Login to the application
 
+        String useremail = "test@abc.com";
+        String password = "testpassword";
+
+        loginpage.loginToApplication(useremail, password);
+
         // 3. Click on Add article
 
         // 4. Write steps to add the article
