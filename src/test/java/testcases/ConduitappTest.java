@@ -5,13 +5,11 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-public class ConduitappTest extends BaseTest{
+public class ConduitappTest extends BaseTest {
 
   @Test
-  public void verifyTitle() throws Exception{
+  public void verifyTitle() throws Exception {
 
-   
     cmnDriver.navigateToUrl("http://localhost:3000");
 
     String actualTitle = cmnDriver.getTitle();
@@ -20,26 +18,18 @@ public class ConduitappTest extends BaseTest{
 
     Assert.assertEquals(actualTitle, "Conduit");
 
-
-
-
   }
 
   @Test
-  public void loginToApplication() throws Exception{
+  public void loginToApplication() throws Exception {
 
     String useremail = "test@abc.com";
 
     String password = "testpassword";
 
-   
     cmnDriver.navigateToUrl("http://localhost:3000");
 
-   
-
     driver.findElement(By.linkText("Sign in")).click();
-
-    
 
     driver.findElement(By.xpath("//input[@type='email']")).sendKeys(useremail);
 
@@ -47,14 +37,10 @@ public class ConduitappTest extends BaseTest{
 
     driver.findElement(By.xpath("//button[@type='submit']")).click();
 
+    String actualUsername = driver.findElement(By.xpath("//a[contains(@href, 'profile')]")).getText();
 
-   String actualUsername = driver.findElement(By.xpath("//a[contains(@href, 'profile')]")).getText();
-
-   Assert.assertEquals(actualUsername, "saurabh");
-
-    
-
+    Assert.assertEquals(actualUsername, "saurabh");
 
   }
-    
+
 }

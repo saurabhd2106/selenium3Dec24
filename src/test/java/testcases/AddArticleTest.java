@@ -2,13 +2,13 @@ package testcases;
 
 import org.testng.annotations.Test;
 
-public class AddArticleTest {
+public class AddArticleTest extends BaseTest{
 
     @Test(enabled = false)
-    public void verifyAddArticle(){
+    public void verifyAddArticle() throws Exception{
 
-        // 1. Open the browser and navigate to sign in page
-
+        cmnDriver.navigateToUrl("http://localhost:3000");
+        
         // 2. Login to the application
 
         // 3. Click on Add article
