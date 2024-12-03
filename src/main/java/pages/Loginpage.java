@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class Loginpage {
+public class Loginpage extends Basepage{
 
     @FindBy(linkText = "Sign in")
     private WebElement siginLink;
@@ -28,18 +28,18 @@ public class Loginpage {
         PageFactory.initElements(driver, this);
 
 
-
     }
 
     public void loginToApplication(String username, String password){
 
-        siginLink.click();
+        control.click(siginLink);
 
-        emailField.sendKeys(username);
+        control.writeText(emailField, username);
 
-        passwordField.sendKeys(password);
+        control.writeText(passwordField, password);
 
-        signinButton.click();
+        control.click(signinButton);
+        
 
     }
 
