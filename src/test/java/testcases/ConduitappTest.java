@@ -46,10 +46,12 @@ public class ConduitappTest {
 
     cmnDriver.setPageloadTimeout(120);
 
+    cmnDriver.navigateToUrl("http://localhost:300");
+
     WebDriver driver = cmnDriver.getDriver();
 
 
-    driver.get("http://localhost:3000");
+   
 
     driver.findElement(By.linkText("Sign in")).click();
 
@@ -70,7 +72,8 @@ public class ConduitappTest {
     //  driver.close();
 
     //This closes the whole connection
-    driver.quit();
+    
+    cmnDriver.closeAllBrowsers();
 
 
   }

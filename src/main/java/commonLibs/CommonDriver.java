@@ -74,5 +74,22 @@ public class CommonDriver {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageloadTimeout));
 
     }
+
+    public void navigateToUrl(String url) throws Exception{
+
+        url = url.trim();
+
+        driver.get(url);
+    }
+
+    public void closeBrowser() throws Exception {
+
+        driver.close();
+    }
+
+    public void closeAllBrowsers() throws Exception {
+
+        driver.quit();
+    }
     
 }
