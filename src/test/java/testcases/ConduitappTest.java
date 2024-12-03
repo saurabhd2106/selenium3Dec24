@@ -44,6 +44,8 @@ public class ConduitappTest {
 
     cmnDriver.setElementDetectionTimeout(10);
 
+    cmnDriver.setPageloadTimeout(120);
+
     WebDriver driver = cmnDriver.getDriver();
 
 

@@ -16,11 +16,19 @@ public class CommonDriver {
 
     private WebDriver driver;
     private int elementDetectionTimeout;
+    private int pageloadTimeout;
 
     public void setElementDetectionTimeout(int timeout) {
         elementDetectionTimeout = timeout;
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
+    }
+
+    public void setPageloadTimeout(int timeout){
+
+        pageloadTimeout = timeout;
+
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageloadTimeout));
     }
 
     public WebDriver getDriver(){
@@ -30,7 +38,7 @@ public class CommonDriver {
     public CommonDriver(String browserType) throws Exception{
 
         elementDetectionTimeout = 5;
-
+        pageloadTimeout = 90;
 
 
         browserType = browserType.trim();
@@ -62,6 +70,8 @@ public class CommonDriver {
         driver.manage().window().maximize();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(elementDetectionTimeout));
+
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageloadTimeout));
 
     }
     
