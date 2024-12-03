@@ -91,5 +91,10 @@ public class CommonDriver {
 
         driver.quit();
     }
+
+    public String getTitle(){
+
+        return driver.getTitle();
+    }
     
 }

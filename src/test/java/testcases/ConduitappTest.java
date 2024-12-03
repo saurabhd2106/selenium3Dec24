@@ -1,34 +1,26 @@
 package testcases;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import commonLibs.CommonDriver;
 
-public class ConduitappTest {
+public class ConduitappTest extends BaseTest{
 
   @Test
-  public void verifyTitle(){
+  public void verifyTitle() throws Exception{
 
-    ChromeDriver driver = new ChromeDriver();
+   
+    cmnDriver.navigateToUrl("http://localhost:3000");
 
-    driver.manage().window().maximize();
-
-    driver.get("http://localhost:3000");
-
-    String actualTitle = driver.getTitle();
-
+    String actualTitle = cmnDriver.getTitle();
 
     System.out.println("Title of the page - " + actualTitle);
 
     Assert.assertEquals(actualTitle, "Conduit");
 
-    driver.close();
+
 
 
   }
@@ -40,16 +32,8 @@ public class ConduitappTest {
 
     String password = "testpassword";
 
-    CommonDriver cmnDriver = new CommonDriver("chrome");
-
-    cmnDriver.setElementDetectionTimeout(10);
-
-    cmnDriver.setPageloadTimeout(120);
-
-    cmnDriver.navigateToUrl("http://localhost:300");
-
-    WebDriver driver = cmnDriver.getDriver();
-
+   
+    cmnDriver.navigateToUrl("http://localhost:3000");
 
    
 
@@ -68,12 +52,7 @@ public class ConduitappTest {
 
    Assert.assertEquals(actualUsername, "saurabh");
 
-    //This only closes current active window
-    //  driver.close();
-
-    //This closes the whole connection
     
-    cmnDriver.closeAllBrowsers();
 
 
   }
