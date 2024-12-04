@@ -6,7 +6,7 @@ import java.util.Properties;
 public class ConfigfileUtils {
 
 
-    public Properties readConfig(String filename) throws Exception{
+    public static Properties readConfig(String filename) throws Exception{
 
         filename = filename.trim();
 

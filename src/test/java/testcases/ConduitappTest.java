@@ -12,7 +12,7 @@ public class ConduitappTest extends BaseTest {
   @Test
   public void verifyTitle() throws Exception {
 
-    cmnDriver.navigateToUrl("http://localhost:3000");
+    cmnDriver.navigateToUrl(configProperty.getProperty("baseUrl"));
 
     String actualTitle = cmnDriver.getTitle();
 

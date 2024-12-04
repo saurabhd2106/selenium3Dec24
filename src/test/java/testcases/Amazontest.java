@@ -13,7 +13,7 @@ public class Amazontest extends BaseTest {
     public void verifySearchProduct() throws Exception{
 
     
-        cmnDriver.navigateToUrl("https://amazon.in");
+        cmnDriver.navigateToUrl(configProperty.getProperty("amazonUrl"));
 
         amazonpage.searchProduct("Apple Watch", "Electronics");
        
