@@ -35,21 +35,17 @@ public class BaseTest {
     ScreenshotControl screenshotControl;
 
     @BeforeClass
-    public void preSetup() throws Exception{
+    public void preSetup() throws Exception {
 
-        currentWorkingDirectory = System.getProperty("user.dir");
+        initialiseCurrentWorkingDirectory();
 
-        String configFilePath = String.format("%s/config/config.properties", currentWorkingDirectory);
+        initialiseConfigProperties();
 
+        initialiseReporting();
 
-        configProperty = ConfigfileUtils.readConfig(configFilePath);
-
-        String executionStartTime = DateTimeUtils.getCurrentDateAndTime();
-
-        String reportFilename = String.format("%s/reports/report-%s.html", currentWorkingDirectory, executionStartTime);
-
-        reportUtils = new ReportUtils(reportFilename);
     }
+
+   
 
     @BeforeMethod
     public void setup() throws Exception {
@@ -71,9 +67,9 @@ public class BaseTest {
     @AfterMethod
     public void cleanup(ITestResult result) throws Exception {
 
-        if(result.getStatus() == ITestResult.SUCCESS){
+        if (result.getStatus() == ITestResult.SUCCESS) {
             reportUtils.addLogs("Info", "All test steps executed successfully!");
-        } else if(result.getStatus() == ITestResult.FAILURE){
+        } else if (result.getStatus() == ITestResult.FAILURE) {
 
             reportUtils.addLogs("fail", "One or more step failed");
 
@@ -83,15 +79,14 @@ public class BaseTest {
 
             String currentTime = DateTimeUtils.getCurrentDateAndTime();
 
-            String screenshotFilename = String.format("%s/screenshots/%s-%s.jpeg", currentWorkingDirectory, testcasename, currentTime);
-
+            String screenshotFilename = String.format("%s/screenshots/%s-%s.jpeg", currentWorkingDirectory,
+                    testcasename, currentTime);
 
             screenshotControl.captureAndSaveScreenshot(screenshotFilename);
 
             reportUtils.addScreenshotToReport(screenshotFilename);
 
-
-        } else if(result.getStatus() == ITestResult.SKIP){
+        } else if (result.getStatus() == ITestResult.SKIP) {
             reportUtils.addLogs("skip", "One ore more steps got skipped");
         }
 
@@ -100,8 +95,28 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void postClean(){
+    public void postClean() {
         reportUtils.flushReport();
+    }
+
+    private void initialiseReporting() throws Exception {
+
+        String executionStartTime = DateTimeUtils.getCurrentDateAndTime();
+
+        String reportFilename = String.format("%s/reports/report-%s.html", currentWorkingDirectory, executionStartTime);
+
+        reportUtils = new ReportUtils(reportFilename);
+    }
+
+    private void initialiseConfigProperties() throws Exception {
+        String configFilePath = String.format("%s/config/config.properties", currentWorkingDirectory);
+
+        configProperty = ConfigfileUtils.readConfig(configFilePath);
+
+    }
+
+    private void initialiseCurrentWorkingDirectory() {
+        currentWorkingDirectory = System.getProperty("user.dir");
     }
 
 }
