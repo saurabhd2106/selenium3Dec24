@@ -12,6 +12,7 @@ import commonLibs.CommonDriver;
 import pages.AmazonPage;
 import pages.Loginpage;
 import utils.ConfigfileUtils;
+import utils.DateTimeUtils;
 import utils.ReportUtils;
 
 public class BaseTest {
@@ -39,7 +40,9 @@ public class BaseTest {
 
         configProperty = ConfigfileUtils.readConfig(configFilePath);
 
-        String reportFilename = String.format("%s/reports/report.html", currentWorkingDirectory);
+        String executionStartTime = DateTimeUtils.getCurrentDateAndTime();
+
+        String reportFilename = String.format("%s/reports/report-%s.html", currentWorkingDirectory, executionStartTime);
 
         reportUtils = new ReportUtils(reportFilename);
     }
