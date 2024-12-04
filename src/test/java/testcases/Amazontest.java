@@ -9,7 +9,7 @@ import utils.DataProviders;
 
 public class Amazontest extends BaseTest {
 
-    @Test(dataProvider = "searchProductData", dataProviderClass = DataProviders.class)
+    @Test(dataProvider = "searchProductDataFromExcel", dataProviderClass = DataProviders.class)
     public void verifySearchProduct(String productName, String category) throws Exception{
 
         reportUtils.createTestcase("TC#012310 - Search product feature in Amazon - " + productName + " " + category);
