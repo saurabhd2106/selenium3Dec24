@@ -5,18 +5,20 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import utils.DataProviders;
+
 public class Amazontest extends BaseTest {
 
-    @Test
-    public void verifySearchProduct() throws Exception{
+    @Test(dataProvider = "searchProductData", dataProviderClass = DataProviders.class)
+    public void verifySearchProduct(String productName, String category) throws Exception{
 
-        reportUtils.createTestcase("TC#012310 - Search product feature in Amazon");
+        reportUtils.createTestcase("TC#012310 - Search product feature in Amazon - " + productName + " " + category);
 
         reportUtils.addLogs("info", "Navigate to URL - " + configProperty.getProperty("amazonUrl"));
         cmnDriver.navigateToUrl(configProperty.getProperty("amazonUrl"));
 
         reportUtils.addLogs("info", "Searching Products");
-        amazonpage.searchProduct("Apple Watch", "Electronics");
+        amazonpage.searchProduct(productName, category);
        
         int numberOfProducts = amazonpage.getProductSize();
        
