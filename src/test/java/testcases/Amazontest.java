@@ -1,69 +1,45 @@
 package testcases;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Amazontest {
+public class Amazontest extends BaseTest {
 
     @Test
-    public void verifySearchProduct() {
+    public void verifySearchProduct() throws Exception{
 
-        ChromeDriver driver = new ChromeDriver();
+    
+        cmnDriver.navigateToUrl("https://amazon.in");
 
-        driver.manage().window().maximize();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-
-        driver.get("https://amazon.com");
-
-        WebElement selectElement = driver.findElement(By.id("searchDropdownBox"));
-
-        Select dropdown = new Select(selectElement);
-
-        dropdown.selectByVisibleText("Electronics");
-
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Apple Watch");
-
-        driver.findElement(By.id("nav-search-submit-button")).click();
-
-        List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type=\"s-search-result\"]"));
-
-        int numberOfProducts = allProducts.size();
-
-
-        System.out.println(allProducts.size());
-
+        amazonpage.searchProduct("Apple Watch", "Electronics");
+       
+        int numberOfProducts = amazonpage.getProductSize();
+       
         Assert.assertTrue(numberOfProducts >= 16);
 
         // Get the first product
 
-        String productDetails = allProducts.get(0).getText();
+        String productDetails = amazonpage.getFirstProductDetails();
 
-        System.out.println(productDetails);
+        Assert.assertTrue(productDetails.toLowerCase().contains("apple watch"));
 
         // Get me the 7th product
 
-        String nthProductDetails = allProducts.get(6).getText();
+        String nthProductDetails = amazonpage.getProductDetailsByIndex(6);
 
-        System.out.println(nthProductDetails);
+        Assert.assertTrue(nthProductDetails.toLowerCase().contains("apple watch"));
 
         // Get all products
 
-        for( WebElement product : allProducts) {
+        List<String> allProductDetails = amazonpage.allProductDetails();
 
-            System.out.println(product.getText());
-
-            System.out.println("----------------------------------------------");
-
+        for(String productDetail : allProductDetails){
+            Assert.assertTrue(productDetail.toLowerCase().contains("apple"));;
         }
-
 
 
     }
