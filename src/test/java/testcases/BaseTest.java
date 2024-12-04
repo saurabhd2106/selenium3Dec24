@@ -3,6 +3,7 @@ package testcases;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -65,7 +66,17 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void cleanup() throws Exception {
+    public void cleanup(ITestResult result) throws Exception {
+
+        if(result.getStatus() == ITestResult.SUCCESS){
+            reportUtils.addLogs("Info", "All test steps executed successfully!");
+        } else if(result.getStatus() == ITestResult.FAILURE){
+
+            reportUtils.addLogs("fail", "One or more step failed");
+
+            reportUtils.addLogs("fail", result.getThrowable().toString());
+
+        }
 
         cmnDriver.closeAllBrowsers();
 
