@@ -1,5 +1,7 @@
 package testcases;
 
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,6 +18,8 @@ public class BaseTest {
 
     Loginpage loginpage;
     AmazonPage amazonpage;
+
+    Properties configProperty;
 
     @BeforeMethod
     public void setup() throws Exception {
