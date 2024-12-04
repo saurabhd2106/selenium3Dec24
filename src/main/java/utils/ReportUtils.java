@@ -65,6 +65,12 @@ public class ReportUtils {
 
     }
 
+    public void addScreenshotToReport(String filename) throws Exception {
+
+        extentTest.addScreenCaptureFromPath(filename);
+
+    }
+
     public void flushReport() {
         extent.flush();
     }

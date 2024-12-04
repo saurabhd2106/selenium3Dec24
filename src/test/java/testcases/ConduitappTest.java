@@ -1,11 +1,7 @@
 package testcases;
 
-import org.openqa.selenium.By;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import pages.Loginpage;
 
 public class ConduitappTest extends BaseTest {
 
@@ -31,10 +27,8 @@ public class ConduitappTest extends BaseTest {
 
     cmnDriver.navigateToUrl("http://localhost:3000");
 
-
     loginpage.loginToApplication(useremail, password);
 
-    
     String actualUsername = loginpage.getUserprofileName();
 
     Assert.assertEquals(actualUsername, "saurabh");

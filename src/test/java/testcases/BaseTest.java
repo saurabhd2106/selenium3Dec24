@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import commonLibs.CommonDriver;
+import commonLibs.ScreenshotControl;
 import pages.AmazonPage;
 import pages.Loginpage;
 import utils.ConfigfileUtils;
@@ -30,6 +31,8 @@ public class BaseTest {
     String currentWorkingDirectory;
 
     ReportUtils reportUtils;
+
+    ScreenshotControl screenshotControl;
 
     @BeforeClass
     public void preSetup() throws Exception{
@@ -61,7 +64,7 @@ public class BaseTest {
 
         loginpage = new Loginpage(driver);
         amazonpage = new AmazonPage(driver);
-
+        screenshotControl = new ScreenshotControl(driver);
 
     }
 
@@ -75,6 +78,18 @@ public class BaseTest {
             reportUtils.addLogs("fail", "One or more step failed");
 
             reportUtils.addLogs("fail", result.getThrowable().toString());
+
+            String testcasename = result.getName();
+
+            String currentTime = DateTimeUtils.getCurrentDateAndTime();
+
+            String screenshotFilename = String.format("%s/screenshots/%s-%s.jpeg", currentWorkingDirectory, testcasename, currentTime);
+
+
+            screenshotControl.captureAndSaveScreenshot(screenshotFilename);
+
+            reportUtils.addScreenshotToReport(screenshotFilename);
+
 
         } else if(result.getStatus() == ITestResult.SKIP){
             reportUtils.addLogs("skip", "One ore more steps got skipped");
