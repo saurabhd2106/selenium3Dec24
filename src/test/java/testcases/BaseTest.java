@@ -76,6 +76,8 @@ public class BaseTest {
 
             reportUtils.addLogs("fail", result.getThrowable().toString());
 
+        } else if(result.getStatus() == ITestResult.SKIP){
+            reportUtils.addLogs("skip", "One ore more steps got skipped");
         }
 
         cmnDriver.closeAllBrowsers();
