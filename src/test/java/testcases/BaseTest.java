@@ -3,6 +3,7 @@ package testcases;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -11,6 +12,7 @@ import commonLibs.CommonDriver;
 import pages.AmazonPage;
 import pages.Loginpage;
 import utils.ConfigfileUtils;
+import utils.ReportUtils;
 
 public class BaseTest {
 
@@ -25,6 +27,8 @@ public class BaseTest {
 
     String currentWorkingDirectory;
 
+    ReportUtils reportUtils;
+
     @BeforeClass
     public void preSetup() throws Exception{
 
@@ -34,6 +38,10 @@ public class BaseTest {
 
 
         configProperty = ConfigfileUtils.readConfig(configFilePath);
+
+        String reportFilename = String.format("%s/reports/report.html", currentWorkingDirectory);
+
+        reportUtils = new ReportUtils(reportFilename);
     }
 
     @BeforeMethod
@@ -50,6 +58,7 @@ public class BaseTest {
         loginpage = new Loginpage(driver);
         amazonpage = new AmazonPage(driver);
 
+
     }
 
     @AfterMethod
@@ -57,6 +66,11 @@ public class BaseTest {
 
         cmnDriver.closeAllBrowsers();
 
+    }
+
+    @AfterClass
+    public void postClean(){
+        reportUtils.flushReport();
     }
 
 }
